@@ -1,0 +1,43 @@
+#Turime tokį kodą:
+#import requests  # importuojame requests
+#from time import time  # importuojame time modulį
+#start_time = time()  # fiksuojame starto laiką
+#r = requests.get('http://www.cnn.com')  # sukuriame http užklausą
+#print(r.status_code)  # spausdiname status code (200 = OK, 404 = Not Found, ir t.t. galima pasiguglinti http status codes)
+#end_time = time()  # fiksuojame pabaigos laiką
+#print(end_time - start_time)  # atspausdiname laiką, per kurį gaovme atsakymą
+#Parašykite dekoratorių, bet kokios funkcijos vykdymo laikui fiksuoti.
+#Galite patobulinti, pvz funkcijos (vardas), su tokiais ir tokiais argumentais vykdymo laikas - XX s.
+#Ištestuokite, su funkcija, grąžinančia svetainės atsako kodą ir su funkcija, išrenkančia pirminius skaičius užduotame diapazone.
+
+from time import time
+import requests
+
+def time_counter(func):
+    def wrapper(*args):
+        start_time=time()
+        print(f'Time colapsed:{time()-start_time} sec.')
+        return func(*args)
+    return wrapper
+
+@time_counter
+def range_print(range_no):
+    naujas=[]
+    for i in range(range_no+1):
+        result = naujas.append(i)
+    print(f"naujas suformuotas sarasas:{naujas} iš tokio narių skaičiaus:{len(naujas)} ")
+range_print(12)
+
+@time_counter
+def status_code(extension):
+    rainbow=requests.get(extension)
+    return rainbow.status_code
+print(f"Successful responses:{status_code('https://www.ebay.co.uk/e/special-events/save-up-to-50-on-warehouse-clearance')}--ok!")
+
+#output
+Time colapsed:0.0 sec.
+naujas suformuotas sarasas:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] iš tokio narių skaičiaus:13 
+Time colapsed:0.0 sec.
+Successful responses:200--ok!
+
+Process finished with exit code 0
