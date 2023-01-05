@@ -1,0 +1,22 @@
+#Parašykite dekoratorių kuris riboja parametrų kiekį (tarkime, ne daugiau negu 2 parametrai funkcijai)
+def args_counter(func):
+    def wrapper(*args):
+        if len(args)>2:
+            print( "per daug argumentu!")
+        elif len(args)==2:
+           print (f"reikalaingas skaicius argumentu!{sum(args)}")
+        else:
+            print("per mazai argumentu!")
+        return func(*args)
+    return wrapper
+
+@args_counter
+def skaiciuoja(*args):
+    return sum(args)
+print(f"skaiciuoja suma ivestų parametru:{skaiciuoja(1,5)}")
+
+#output
+reikalaingas skaicius argumentu!6
+skaiciuoja suma ivestų parametru:6
+
+Process finished with exit code 0
