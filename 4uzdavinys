@@ -1,0 +1,51 @@
+#Parašykite dekoratorių, bet kokios funkcijos vykdymo laikui fiksuoti.
+#Galite patobulinti, pvz funkcijos (vardas), su tokiais ir tokiais argumentais vykdymo laikas - XX s.
+#Ištestuokite, su funkcija, grąžinančia svetainės atsako kodą ir su funkcija, išrenkančia pirminius skaičius užduotame diapazone.
+from time import time
+def atlikimo_laikas(func):
+    def wrapper(*args):
+        pradzios_laikas = time()
+        rezultatas = func(*args)
+        pabaigos_laikas = time()
+        print(f"Tau prireike: {pabaigos_laikas - pradzios_laikas} sek viskam atlikti")
+        return rezultatas
+    return wrapper
+
+@atlikimo_laikas
+def skaiciuojam_simb():
+    x = input("Iveskite bet koki teksta: ")
+    print(f"Tekste yra '{len(x)}' simboliu")
+skaiciuojam_simb()
+
+@atlikimo_laikas
+def ilgesne_func(*args):
+    x = 0
+    for i in args:
+        x += i
+    if x % 2 != 0:
+        pass
+    else:
+        print("lyginis")
+    return x
+
+print(f"skaiciuojam ivestų argumentų sumą:{ilgesne_func(1,2,30,569)}")
+@atlikimo_laikas
+def sarasas(x):
+    naujas=[]
+    for i in range(x):
+        result=naujas.append(i)
+    print(f"naujas suformuotas sarasas:{naujas} iš tokio narių skaičiaus:{len(naujas)} ")
+sarasas(15)
+
+
+#ouput
+Iveskite bet koki teksta: labas rytas tau sakau!
+Tekste yra '22' simboliu
+Tau prireike: 4.26524806022644 sek viskam atlikti
+lyginis
+Tau prireike: 0.0 sek viskam atlikti
+skaiciuojam ivestų argumentų sumą:602
+naujas suformuotas sarasas:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14] iš tokio narių skaičiaus:15 
+Tau prireike: 0.0 sek viskam atlikti
+
+Process finished with exit code 0
