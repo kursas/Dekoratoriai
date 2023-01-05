@@ -1,0 +1,35 @@
+#Parašykite dekoratorių, kuris leidžia į funkciją įrašyti tik string tipo parametrus.
+def string_type(fn):
+    def wrapper(text):
+        if type(text) != str:
+            return "Tai nera tekstas"
+        return fn(text)
+    return wrapper
+
+@string_type
+def returns_string(some_string):
+    return some_string
+print(returns_string('labas rytas 123'))
+
+#output
+labas rytas 123
+
+Process finished with exit code 0
+
+--------------------------------------------------
+def string_type(fn):
+    def wrapper(text):
+        if type(text) != str:
+            return "Tai nera tekstas"
+        return fn(text)
+    return wrapper
+
+@string_type
+def returns_string(some_string):
+    return some_string
+print(returns_string(123.56))
+
+#output
+Tai nera tekstas
+
+Process finished with exit code 0
