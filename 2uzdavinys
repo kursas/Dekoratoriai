@@ -1,0 +1,25 @@
+#Parašykite dekoratorių, kuris atideda funkcijos vykdymą 3s
+from time import sleep
+def uzvelavimas(laikas):
+    def uzvelavimas(fn):
+        def wrapper(*args, **kwargs):
+            sleep(laikas)
+            print(f"Funkcija buvo atidėta {laikas} sekundę(-es)")
+            return fn(*args, **kwargs)
+        return wrapper
+    return uzvelavimas
+@uzvelavimas(3)
+def for_sukimas(kartai):
+    for x in range(kartai):
+        print(x, " ", end="")
+    print()
+@uzvelavimas(3)
+def sumavimas(*args):
+    print("Skaičių suma:", sum(args))
+for_sukimas(10)
+
+#output
+Funkcija buvo atidėta 3 sekundę(-es)
+0  1  2  3  4  5  6  7  8  9  
+
+Process finished with exit code 0
